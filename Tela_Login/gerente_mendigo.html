@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Configurações básicas -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Gerente - Padaria</title>
+
+    <!-- Estilo principal -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Cabeçalho com saudação e botão de logout -->
+        <header>
+            <h1>Bem-vindo, Gerente</h1>
+            <button id="logout">Sair</button>
+        </header>
+
+        <!-- Navegação entre seções do painel -->
+        <nav>
+            <ul>
+                <li><a href="#estoque">Estoque</a></li>
+                <li><a href="#vendas">Vendas</a></li>
+                <li><a href="#funcionarios">Funcionários</a></li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo principal com 3 seções -->
+        <main>
+            <section id="estoque">
+                <h2>Estoque</h2>
+                <p>Gerencie os produtos da padaria.</p>
+            </section>
+
+            <section id="vendas">
+                <h2>Vendas</h2>
+                <p>Acompanhe as vendas diárias.</p>
+            </section>
+
+            <section id="funcionarios">
+                <h2>Funcionários</h2>
+                <p>Controle os funcionários da padaria.</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- Script com funcionalidades do painel -->
+    <script src="script.js"></script>
+</body>
+</html>
