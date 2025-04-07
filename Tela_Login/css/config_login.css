@@ -128,7 +128,7 @@ form { width: 100%; }
 
 .social-icons a {
     display: inline-flex;
-    padding: 10px;
+    padding: 100px;
     border: 2px solid #ccc;
     border-radius: 8px;
     font-size: 24px;
@@ -139,30 +139,38 @@ form { width: 100%; }
 /* Área que envolve o painel de boas-vindas */
 .toggle-box {
     position: absolute;
-    width: 100%;
+    width: 40%; /* Ajuste conforme necessário */
     height: 91%;
+    left: 0;
+    background: linear-gradient(to bottom, #edb06a, #976724);
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animated-slide {
+    animation: slideIn 1s ease-out forwards;
 }
 
 /* Círculo animado de fundo do painel */
-.toggle-box::before {
-    content: '';
-    position: absolute;
-    right: 900px;
-    width: 290%;
-    height: 100%;
-    background: linear-gradient(#edb06a, #976724);
-    border-radius: 200px;
-    z-index: 2;
-    transition: 1.8s ease-in-out;
-}
 
-.container.active .toggle-box::before { left: 50%; }
+.container.active{ left: 50%; }
 
 /* Painéis laterais animados */
 .toggle-panel {
     position: absolute;
-    width: 30%;
-    height: 100%;
+    width: 100%;
+    height: 550px;
     color: #fff;
     display: flex;
     flex-direction: column;

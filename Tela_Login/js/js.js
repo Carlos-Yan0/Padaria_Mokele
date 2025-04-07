@@ -1,6 +1,7 @@
-const container = document.querySelector('.container');
-const loginBtn = document.querySelector('.login-btn');
+document.addEventListener("DOMContentLoaded", function() {
+    let toggleBox = document.querySelector(".toggle-box");
 
-loginBtn.addEventListener('click', () => {
-    container.classList.toggle('active');
+    if (toggleBox) {
+        toggleBox.classList.add("animated-slide");
+    }
 });
