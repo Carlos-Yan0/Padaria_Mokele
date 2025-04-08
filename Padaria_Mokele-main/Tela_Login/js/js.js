@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let toggleBox = document.querySelector(".toggle-box");
 
     if (toggleBox) {
