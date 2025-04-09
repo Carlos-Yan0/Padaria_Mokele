@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Registro de Comanda</title>
+    <style>
+        body {
+            background-image: url("https://i.pinimg.com/736x/76/86/ad/7686ad446150f50651b872aeedeca8e2.jpg");
+            display: flex;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .comanda-container {
+            background: linear-gradient(#faca92 ,#edb06a, #f3a852);
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .comanda-container #totalComanda {
+            color: green;
+            font-weight: bold;
+            font-size: 24px;
+            background-color: #e0ffe0;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+
+        .comanda-container #buttonFinish {
+            width: 30%;
+            height: 5%;
+            background: linear-gradient(#edb06a, #f3a852);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #fff;
+            font-weight: 600;
+            transition: transform 0.5s;
+        }
+
+        .comanda-container #buttonFinish:hover {
+            transform: scale(1.05);
+        }
+
+        input,
+        select,
+        button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f3a953;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="comanda-container">
+        <h2>Registrar Comanda</h2>
+        <div>
+            <input type="text" id="produto" placeholder="Nome do Produto" />
+            <input type="number" id="quantidade" placeholder="Qtd" min="1" value="1" />
+            <input type="text" id="preco" placeholder="Preço (R$)" />
+            <button onclick="adicionarItem()">Adicionar</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                    <th>Total</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="listaComanda"></tbody>
+        </table>
+
+        <h3>Total da Comanda: R$ <span id="totalComanda">0.00</span></h3>
+        <button onclick="finalizarComanda()" id="buttonFinish">Finalizar Comanda</button>
+    </div>
+
+    <script>
+        let itens = [];
+
+        function atualizarTabela() {
+            const corpo = document.getElementById('listaComanda');
+            corpo.innerHTML = '';
+            let total = 0;
+
+            itens.forEach((item, index) => {
+                const subtotal = item.quantidade * item.preco;
+                total += subtotal;
+
+                corpo.innerHTML += `
+          <tr>
+            <td>${item.produto}</td>
+            <td>${item.quantidade}</td>
+            <td>R$ ${item.preco.toFixed(2)}</td>
+            <td>R$ ${subtotal.toFixed(2)}</td>
+            <td><button onclick="removerItem(${index})">Remover</button></td>
+          </tr>
+        `;
+            });
+
+            document.getElementById('totalComanda').innerText = total.toFixed(2);
+        }
+
+        function adicionarItem() {
+            const produto = document.getElementById('produto').value;
+            const quantidade = parseInt(document.getElementById('quantidade').value);
+
+            // 🧠 Aqui extraímos o número do valor formatado
+            const precoTexto = document.getElementById('preco').value;
+            const preco = parseFloat(precoTexto.replace(/[R$\s\.]/g, '').replace(',', '.'));
+
+            if (produto && quantidade > 0 && !isNaN(preco)) {
+                itens.push({ produto, quantidade, preco });
+                atualizarTabela();
+                document.getElementById('produto').value = '';
+                document.getElementById('quantidade').value = 1;
+                document.getElementById('preco').value = '';
+            } else {
+                alert('Preencha todos os campos corretamente!');
+            }
+        }
+
+        function removerItem(index) {
+            itens.splice(index, 1);
+            atualizarTabela();
+        }
+
+        function finalizarComanda() {
+            if (itens.length === 0) {
+                alert('Nenhum item na comanda!');
+                return;
+            }
+
+            alert('Comanda finalizada com sucesso! 🎉');
+            itens = [];
+            atualizarTabela();
+        }
+
+        // 💰 Máscara de moeda formatando ao digitar
+        const inputPreco = document.getElementById('preco');
+
+        inputPreco.addEventListener('input', () => {
+            let valor = inputPreco.value.replace(/\D/g, '');
+
+            if (!valor) {
+                inputPreco.value = '';
+                return;
+            }
+
+            let float = parseFloat(valor) / 100;
+            let formatado = float.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+                minimumFractionDigits: 2
+            });
+
+            inputPreco.value = formatado;
+        });
+
+        inputPreco.addEventListener('focus', () => {
+            inputPreco.select();
+        });
+    </script>
+</body>
+
+</html>
+
+
+
